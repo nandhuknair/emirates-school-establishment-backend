@@ -5,12 +5,11 @@ require('dotenv').config()
 const app = express()
 
 
-// app.use(cors({
-//   origin: process.env.FRONTEND_URL,
-//   methods: ["POST", "GET", "PUT", "DELETE"],
-//   credentials: true,
-//   allowedHeaders: ['Content-Type', 'Authorization'], 
-// }));
+const cors = require('cors');
+app.use(cors({
+  origin: ['https://your-netlify-url.com', 'https://your-vercel-url.com'],
+  methods: ['GET', 'POST'],
+}));
 
 // app.use(express.json())
 // app.use(cookiesParser())
