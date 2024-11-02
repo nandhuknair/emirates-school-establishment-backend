@@ -2,16 +2,21 @@ const connectDB = require('../config/connectDB');
 
 async function studentDetails(req, res) {
     console.log('Entered student detail page');
-    const studentId = req.params.id;
-
+    const studentId = String(req.params.id);
+    console.log(studentId, 'This is student Id')
     try {
         const db = await connectDB();
+        console.log(db,' git This is db')
         const lmfCollection = db.collection('studentsLMF');
         const alefCollection = db.collection('studentsALEF');
 
         // Fetch data from both collections
         const lmfStudent = await lmfCollection.findOne({ 'Student ID': studentId });
         const alefStudent = await alefCollection.findOne({ 'Student ID': studentId });
+
+        console.log(lmfStudent, ' this is lmf student')
+        console.log(alefStudent, ' this is alef student')
+
 
         // Ensure data from either collection exists
         if (!lmfStudent && !alefStudent) {
@@ -34,6 +39,8 @@ async function studentDetails(req, res) {
             lmsUserId: lmfStudent?.['LMS User ID'] || null,
             lmsPassword: lmfStudent?.['LMS Password'] || null,
         };
+
+        console.log(response)
 
         return res.status(200).json(response);
 
